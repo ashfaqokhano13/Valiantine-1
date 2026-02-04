@@ -1,88 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Valentine 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ffe6eb;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffe6eb;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
 
-    .box {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      width: 300px;
-    }
+.box {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 300px;
+}
 
-    img {
-      width: 140px;
-      margin-bottom: 15px;
-    }
+img {
+  width: 140px;
+  margin-bottom: 15px;
+}
 
-    h2 {
-      margin-bottom: 20px;
-    }
+h2 {
+  margin-bottom: 20px;
+}
 
-    button {
-      padding: 10px 22px;
-      border: none;
-      border-radius: 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    #yes {
-      background: #ff4d6d;
-      color: white;
-    }
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
 
-    #no {
-      background: #ccc;
-      position: absolute;
-    }
-  </style>
+#no {
+  background: #ccc;
+  position: absolute;
+}
+
+/* Confetti shapes */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  top: 0;
+  opacity: 0.8;
+  border-radius: 50%;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10px) rotate(0deg);}
+  100% { transform: translateY(100vh) rotate(360deg);}
+}
+</style>
 </head>
 <body>
 
-  <div class="box" id="box">
-    <img src="https://i.imgur.com/1Q9Z1Zm.png" alt="cute cartoon">
-    <h2>Will you be my Valentine? 💕</h2>
-    <button id="yes" onclick="yesClick()">Yes</button>
-    <button id="no" onmouseover="moveNo()">No</button>
-  </div>
+<div class="box" id="box">
+  <div style="font-size:100px;">🐱💖</div>
+  <h2>Will you be my Valentine? 💕</h2>
+  <button id="yes" onclick="yesClick()">Yes</button>
+  <button id="no" onmouseover="moveNo()">No</button>
+</div>
 
-  <script>
-    function moveNo() {
-      const noBtn = document.getElementById("no");
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 50);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
 
-    function yesClick() {
-      document.body.innerHTML = `
-        <div style="text-align:center;">
-          <h1>YAHOO 🎉😍</h1>
-          <p>You said YES 💖</p>
-          <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" 
-               style="width:200px;">
-        </div>
-      `;
-    }
-  </script>
+<script>
+function moveNo() {
+  const noBtn = document.getElementById("no");
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+function yesClick() {
+  document.body.innerHTML = `
+    <div style="text-align:center;">
+      <h1>YAHOO 🎉 Noora said YES!</h1>
+      <p>You made my day 💕</p>
+      <div style="font-size:100px;">🐱💖</div>
+    </div>
+  `;
+  document.getElementById('music').play();
+  createConfetti();
+}
+
+// Confetti animation
+function createConfetti() {
+  for(let i=0;i<50;i++){
+    const conf = document.createElement('div');
+    conf.classList.add('confetti');
+    conf.style.left = Math.random()*window.innerWidth+'px';
+    conf.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+    conf.style.animationDuration = 2 + Math.random()*3 + 's';
+    document.body.appendChild(conf);
+    setTimeout(()=>{ conf.remove(); },5000);
+  }
+}
+</script>
 
 </body>
 </html>
